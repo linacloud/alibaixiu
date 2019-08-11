@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="utf-8">
   <title>Sign in &laquo; Admin</title>
   <link rel="stylesheet" href="../assets/vendors/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="../assets/css/admin.css">
 </head>
+
 <body>
   <div class="login">
     <div class="login-wrap">
@@ -22,8 +24,50 @@
         <label for="password" class="sr-only">密码</label>
         <input id="password" type="password" class="form-control" placeholder="密码">
       </div>
-      <button class="btn btn-primary btn-block">登 录</button>
+      <button class="btn btn-primary btn-block" id="loginBtn">登 录</button>
     </div>
   </div>
+  <script src="../assets/vendors/jquery/jquery.min.js"></script>
+  <script>
+    $(function () {
+      var loginBtn = $('#loginBtn');
+
+      loginBtn.on('click', function () {
+        //  console.log(1);
+        var email = $('#email').val();
+        var password = $('#password').val();
+        if (email == '') {
+          alert('请输入邮箱');
+          return
+        }
+        if (password == '') {
+          alert('请输入密码');
+          return
+        }
+        console.log(1);
+
+        $.ajax({
+          type: 'post',
+          url: '/login',
+          data: {
+            email: email,
+            password: password
+          },
+          success: function (responce) {
+            console.log(responce);
+            
+            location.href = 'index.html'
+          },
+          error: function (responce) {
+            alert('请输入正确的邮箱和密码')
+          }
+
+        })
+
+      })
+
+    })
+  </script>
 </body>
+
 </html>
